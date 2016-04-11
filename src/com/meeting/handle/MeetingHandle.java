@@ -19,6 +19,6 @@ public class MeetingHandle {
         return true;
     }
 
-    public Talk
+//    public Talk
 
 }
