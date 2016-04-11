@@ -1,0 +1,108 @@
+
+题目一：http://bbs.csdn.net/topics/320205964
+
+
+
+题目二：
+你正在计划一个大规划会议和得到许多建议都通过初始屏幕流程但是你难以拟合到一天的时间限制——有太多的可能性!所以你编写一个程序,为你做这些。
+	限制条件：每一个会议都有多个
+	每一会议包含多个talks
+	早间会议9 点开始 必须在12 点结束 吃午饭
+	下午会议 13点 开始 在network 开始之前结束、
+	network 不早于 16点 不晚于 17 点
+	每个会议名中不包含数字
+	每个会议只能以分钟（不能是小时）或者lightning（表示五分钟）
+	每个会议的主持都很准时，两个会议间不能有间隙
+
+	eg：
+	Input： 输入数据
+
+	Writing Fast Tests Against Enterprise Rails 60min
+	Overdoing it in Python 45min
+	Lua for the Masses 30min
+	Ruby Errors from Mismatched Gem Versions 45min
+	Common Ruby Errors 45min
+	Rails for Python Developers lightning
+	Communicating Over Distance 60min
+	Accounting-Driven Development 45min
+	Woah 30min
+	Sit Down and Write 30min
+	Pair Programming vs Noise 45min
+	Rails Magic 60min
+	Ruby on Rails: Why We Should Move On 60min
+	Clojure Ate Scala (on my project) 45min
+	Programming in the Boondocks of Seattle 30min
+	Ruby vs. Clojure for Back-End Development 30min
+	Ruby on Rails Legacy App Maintenance 60min
+	A World Without HackerNews 30min
+	User Interface CSS in Rails Apps 30min
+
+	Ouput: 输出结果
+	Track 1:
+	09:00AM Writing Fast Tests Against Enterprise Rails 60min
+	10:00AM Overdoing it in Python 45min
+	10:45AM Lua for the Masses 30min
+	11:15AM Ruby Errors from Mismatched Gem Versions 45min
+	12:00PM Lunch
+	01:00PM Ruby on Rails: Why We Should Move On 60min
+	02:00PM Common Ruby Errors 45min
+	02:45PM Pair Programming vs Noise 45min
+	03:30PM Programming in the Boondocks of Seattle 30min
+	04:00PM Ruby vs. Clojure for Back-End Development 30min
+	04:30PM User Interface CSS in Rails Apps 30min
+	05:00PM Networking Event
+	
+	Track 2:
+	09:00AM Communicating Over Distance 60min
+	10:00AM Rails Magic 60min
+	11:00AM Woah 30min
+	11:30AM Sit Down and Write 30min
+	12:00PM Lunch
+	01:00PM Accounting-Driven Development 45min
+	01:45PM Clojure Ate Scala (on my project) 45min
+	02:30PM A World Without HackerNews 30min
+	03:00PM Ruby on Rails Legacy App Maintenance 60min
+	04:00PM Rails for Python Developers lightning
+	05:00PM Networking Event
+
+
+题目三：http://www.ziliao1.com/Article/Show/66DBA2ADEE32D44F09924F515AAA6E6B.html
+我成了地球首富，然后有很多钱，但是地球已经不适合人类居住了，需要跑到银河系去做生意，但是银河系使用的是罗马字母表示钱，所以座位程序员的我打算自己写一个罗马字母和十进制数字互转的小程序，以帮助我做生意。
+
+罗马字母有: I，V，X，L，C，D，M
+
+1. I：可以表示十进制数字1，V：可以表示十进制数字5，X：可以表示十进制数字10，L：可以表示十进制数字50，C：可以表示十进制数字100，D：可以表示十进制数字500，M：可以表示十进制数字1000；
+
+2.I, X, C, and M可以重复出现最多3次；
+
+3.一般是从后往前排列：即MDCLXVI的顺序，当然也允许相邻的两个倒序，但是需要符合以下规则:
+
+   I ：只能组合IV ,IX
+
+   X：只能组合XL，XC
+
+   C：只能组合CD，CM
+
+   V，L，D不能倒序
+   比如1903 转换 后是 1 9 0 3 = M CM III
+
+   Test input:
+	glob is I
+	prok is V
+	pish is X
+	tegj is L
+	glob glob Silver is 34 Credits
+	glob prok Gold is 57800 Credits
+	pish pish Iron is 3910 Credits
+	how much is pish tegj glob glob ?
+	how many Credits is glob prok Silver ?
+	how many Credits is glob prok Gold ?
+	how many Credits is glob prok Iron ?
+	how much wood could a woodchuck chuck if a woodchuck could chuck wood ?
+	
+	Test Output:
+	pish tegj glob glob is 42
+	glob prok Silver is 68 Credits
+	glob prok Gold is 57800 Credits
+	glob prok Iron is 782 Credits
+	I have no idea what you are talking about
