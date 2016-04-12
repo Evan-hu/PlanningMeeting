@@ -13,6 +13,11 @@ public class Talk {
     public Talk() {
     }
 
+    public Talk(String title, int duration) {
+        this.title = title;
+        this.duration = duration;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -25,11 +30,11 @@ public class Talk {
         this.title = title;
     }
 
-    public int getTime() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setTime(int duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
