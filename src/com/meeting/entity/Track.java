@@ -1,9 +1,6 @@
 package com.meeting.entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Evan on 4/11/2016.
@@ -14,9 +11,14 @@ public class Track {
     private static int LunchHour = 12;
     public static int MinutesPerHour = 60;
 
-    public static int TotalMinPerTrack = (SessionStartAt - SessionEndsAt - 1) * MinutesPerHour;
+    public static int TotalMinPerTrack = (SessionEndsAt - SessionStartAt - 1) * MinutesPerHour;
     public static int TotalMinInMorningSession = MinutesPerHour * (LunchHour - SessionStartAt);
     public static int TotalMinInAfterNoonSession = MinutesPerHour * (SessionEndsAt - LunchHour);
+
+//    Calendar c1 = Calendar.getInstance();
+//    c1.set(0,0,0,16,0,0);
+//    public Date FourPM = c1.getTime();
+
 
     private String Id;
     private Map<Sessiontype, Session> Sessions;

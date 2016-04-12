@@ -3,10 +3,7 @@ package com.meeting.Main;
 import com.meeting.entity.Talk;
 import com.meeting.handle.Conference;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 
 public class ConferenceScheduler {
 
@@ -41,7 +38,7 @@ public class ConferenceScheduler {
     public static String StringArrayToString(String [] str) {
         String result = "";
         for (int i = 0; i < str.length - 1; i++)
-            result += str[i];
+            result += str[i] + " ";
         return result;
     }
 

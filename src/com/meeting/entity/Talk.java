@@ -22,8 +22,8 @@ public class Talk {
         return title;
     }
 
-    private String DurationFormat() {
-        return duration == 5 ? "Lightning" : duration + "min";
+    public String DurationFormat() {
+        return getDuration() == 5 ? "Lightning" : getDuration() + "min";
     }
 
     public void setTitle(String title) {
