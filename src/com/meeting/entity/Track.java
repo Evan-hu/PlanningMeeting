@@ -13,7 +13,7 @@ public class Track {
 
     public static int TotalMinPerTrack = (SessionEndsAt - SessionStartAt - 1) * MinutesPerHour;
     public static int TotalMinInMorningSession = MinutesPerHour * (LunchHour - SessionStartAt);
-    public static int TotalMinInAfterNoonSession = MinutesPerHour * (SessionEndsAt - LunchHour);
+    public static int TotalMinInAfterNoonSession = MinutesPerHour * (SessionEndsAt - LunchHour - 1);
 
 //    Calendar c1 = Calendar.getInstance();
 //    c1.set(0,0,0,16,0,0);

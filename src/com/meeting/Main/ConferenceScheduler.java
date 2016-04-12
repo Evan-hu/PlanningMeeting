@@ -25,7 +25,6 @@ public class ConferenceScheduler {
                     break;
                 }
             }
-
             Conference conference = new Conference();
             conference.ScheduleTalks(talks);
         } catch (Exception e) {while(input.hasNextLine())
