@@ -4,7 +4,6 @@ import com.meeting.entity.Talk;
 import com.meeting.handle.Conference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +25,6 @@ public class ConferenceScheduler {
 //                    String title = StringArrayToString(tokens);
                     talks.add(new Talk(StringArrayToString(tokens), GetDuration(tokens[tokens.length - 1])));
                 } else {
-                    System.out.println("The content is empty!");
                     break;
                 }
             }
