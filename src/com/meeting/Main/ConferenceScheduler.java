@@ -2,7 +2,6 @@ package com.meeting.Main;
 
 import com.meeting.entity.Talk;
 import com.meeting.handle.Conference;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
 public class ConferenceScheduler {
 
     public static void main(String[] args) {
-        System.out.print("Please Input meeting(End with Double Enter): ");
+        System.out.print("Please Input meeting(End With Double Click Enter): ");
         String line = "";
         List<Talk> talks = new ArrayList<Talk>();
         Scanner input = new Scanner(System.in);
@@ -61,7 +60,7 @@ public class ConferenceScheduler {
     }
 
     public static boolean hasNumberic(String str) {
-        Pattern pattern = Pattern.compile("\\d+.*");
+        Pattern pattern = Pattern.compile(".*\\d+.*");
         Matcher matcher = pattern.matcher(str);
         if (!matcher.matches())
             return false;

@@ -52,15 +52,17 @@ public class Conference {
                 calendar.add(Calendar.HOUR_OF_DAY, 1);
                 for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.AfternoonSession)) {
                     System.out.println(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
+                    calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
 
                 if (Track.FourPM.after(calendar.getTime())) {
                     System.out.println(dateFormat.format(Track.FourPM) + " Networking Event");
-                } else if (Track.FivePM.after(calendar.getTime()) && calendar.getTime().after(Track.FourPM)) {
-                    System.out.println(dateFormat.format(calendar.getTime()) + " Networking Event");
+                } else if (Track.FivePM.after(calendar.getTime())) {
+                    System.out.println(dateFormat.format(Track.FivePM) + " Networking Event");
                 } else {
                     System.out.println(dateFormat.format(Track.FivePM) + " Networking Event");
                 }
+
                 System.out.println("\n\n");
             }
 

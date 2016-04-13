@@ -1,6 +1,5 @@
 package com.meeting.entity;
 
-import javax.xml.datatype.Duration;
 
 /**
  * Created by Evan on 4/11/2016.
