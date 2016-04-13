@@ -4,15 +4,14 @@ import com.meeting.entity.Sessiontype;
 import com.meeting.entity.Talk;
 import com.meeting.entity.Track;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Evan on 4/11/2016.
  */
 public class Conference {
-    private List<Track> tracks;
+    private List<Track> tracks = new ArrayList<Track>();
 
     public void ScheduleTalks(List<Talk> talks) {
         if (talks.size() == 0) {
@@ -40,15 +39,28 @@ public class Conference {
             }
 
             for (int i = 1; i < numOfTracks+1; i++) {
+                final Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, 9);
+                calendar.set(Calendar.MINUTE,0);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a");
                 System.out.println("Track "+ i);
                 for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.MorningSession)) {
-                    System.out.println(talk.getTitle()+ talk.DurationFormat());
+                    System.out.println(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
+                    calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
-                System.out.println("Lunch Time");
+                System.out.println(dateFormat.format(Track.LunchPM)+ " Lunch");
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
                 for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.AfternoonSession)) {
-                    System.out.println(talk.getTitle()+ talk.DurationFormat());
+                    System.out.println(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
                 }
-                System.out.println("Session Event");
+
+                if (Track.FourPM.after(calendar.getTime())) {
+                    System.out.println(dateFormat.format(Track.FourPM) + " Networking Event");
+                } else if (Track.FivePM.after(calendar.getTime()) && calendar.getTime().after(Track.FourPM)) {
+                    System.out.println(dateFormat.format(calendar.getTime()) + " Networking Event");
+                } else {
+                    System.out.println(dateFormat.format(Track.FivePM) + " Networking Event");
+                }
                 System.out.println("\n\n");
             }
 
@@ -71,7 +83,7 @@ public class Conference {
         if (tracks.get(trackIndex).TalksExistForSession(sessionType)) {
             return ;
         }
-        List<Talk> talksForSession = null;
+        List<Talk> talksForSession = new ArrayList<Talk>();
         if (!GetAllTime(talks,totalNumOfMintues)) {
             talksForSession = LookForSession(talks, trackIndex, totalNumOfMintues, maxset);
             if (!talksForSession.isEmpty()) {
@@ -81,8 +93,11 @@ public class Conference {
                 }
             }
         } else {
-            tracks.get(trackIndex).AddTalksToSession(sessionType, talks);
-//            talks.clear();
+            for (int i=0; i<talks.size(); i++) {
+                talksForSession.add((Talk) talks.get(i).clone());
+            }
+            tracks.get(trackIndex).AddTalksToSession(sessionType, talksForSession);
+            talks.clear();
         }
     }
 
@@ -91,34 +106,33 @@ public class Conference {
         List<Talk> talksInSession = new ArrayList<Talk>(maxSet);
         boolean found = false;
 
-            for (; maxSet > 0; maxSet--) {
-                Iterator<Talk> itr = GetCombinations(maxSet, trackIndex, combinations, talks).iterator();
-                while (itr.hasNext()) {
-                    talksInSession.clear();
-//                boolean found = false;
-                    int availableMin = totalMintues;
+        for (; maxSet > 0; maxSet--) {
+            Iterator<Talk> itr = GetCombinations(maxSet, trackIndex, combinations, talks).iterator();
+            while (itr.hasNext()) {
+                talksInSession.clear();
+                int availableMin = totalMintues;
 
-                    while (itr.hasNext()) {
-                        Talk talk = itr.next();
-                        availableMin -= talk.getDuration();
-                        talksInSession.add(talk);
-                        if (availableMin == 0) {
-                            found = true;
-                            break;
-                        }
-                        if (availableMin < 0) {
-                            break;
-                        }
-                    }
-                    if (found) {
+                while (itr.hasNext()) {
+                    Talk talk = itr.next();
+                    availableMin -= talk.getDuration();
+                    talksInSession.add(talk);
+                    if (availableMin == 0) {
+                        found = true;
                         break;
-                    } else {
-                        availableMin = totalMintues;
+                    }
+                    if (availableMin < 0) {
+                        break;
                     }
                 }
-                if (found)
+                if (found) {
                     break;
+                } else {
+                    availableMin = totalMintues;
+                }
             }
+            if (found)
+                break;
+        }
         return talksInSession;
     }
 

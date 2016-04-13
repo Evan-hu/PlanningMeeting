@@ -15,9 +15,27 @@ public class Track {
     public static int TotalMinInMorningSession = MinutesPerHour * (LunchHour - SessionStartAt);
     public static int TotalMinInAfterNoonSession = MinutesPerHour * (SessionEndsAt - LunchHour - 1);
 
-//    Calendar c1 = Calendar.getInstance();
-//    c1.set(0,0,0,16,0,0);
-//    public Date FourPM = c1.getTime();
+    public static Date FourPM;
+    static {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE,0);
+        FourPM = calendar.getTime();
+    }
+    public static Date FivePM;
+    static {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE,0);
+        FivePM = calendar.getTime();
+    }
+    public static Date LunchPM;
+    static {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE,0);
+        LunchPM = calendar.getTime();
+    }
 
 
     private String Id;

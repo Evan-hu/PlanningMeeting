@@ -5,12 +5,22 @@ import javax.xml.datatype.Duration;
 /**
  * Created by Evan on 4/11/2016.
  */
-public class Talk {
+public class Talk implements Cloneable  {
     private String title;
     private int duration;
     private boolean scheduled;
 
     public Talk() {
+    }
+
+    public Object clone() {
+        Talk talk = null;
+        try {
+            talk = (Talk) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return talk;
     }
 
     public Talk(String title, int duration) {
