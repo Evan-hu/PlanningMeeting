@@ -13,10 +13,10 @@ import java.util.*;
 public class Conference {
     private List<Track> tracks = new ArrayList<Track>();
 
-    public void ScheduleTalks(List<Talk> talks) {
+    public List<String> ScheduleTalks(List<Talk> talks) {
+        List<String> results = new ArrayList<String>();
         if (talks.size() == 0) {
-            System.out.println("No talks to scheduled");
-            return ;
+            results.add("No talks to scheduled");
         }
         try {
             double totalDuration = getSumDuration(talks);
@@ -43,33 +43,34 @@ public class Conference {
                 calendar.set(Calendar.HOUR_OF_DAY, 9);
                 calendar.set(Calendar.MINUTE,0);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a");
-                System.out.println("Track "+ i);
+                results.add("Track "+ i);
                 for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.MorningSession)) {
-                    System.out.println(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
+                    results.add(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
                     calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
-                System.out.println(dateFormat.format(Track.LunchPM)+ " Lunch");
+                results.add(dateFormat.format(Track.LunchPM)+ " Lunch");
                 calendar.add(Calendar.HOUR_OF_DAY, 1);
                 for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.AfternoonSession)) {
-                    System.out.println(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
+                    results.add(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
                     calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
 
                 if (Track.FourPM.after(calendar.getTime())) {
-                    System.out.println(dateFormat.format(Track.FourPM) + " Networking Event");
+                    results.add(dateFormat.format(Track.FourPM) + " Networking Event");
                 } else if (Track.FivePM.after(calendar.getTime())) {
-                    System.out.println(dateFormat.format(Track.FivePM) + " Networking Event");
+                    results.add(dateFormat.format(Track.FivePM) + " Networking Event");
                 } else {
-                    System.out.println(dateFormat.format(Track.FivePM) + " Networking Event");
+                    results.add(dateFormat.format(Track.FivePM) + " Networking Event");
                 }
-
-                System.out.println("\n\n");
+                results.add("\n\n");
             }
 
 
         } catch(Exception e){
             System.out.println(e);
         }
+
+        return results;
     }
 
     private int getSumDuration(List<Talk> talks) {
