@@ -3,7 +3,7 @@ package com.meeting.entity;
 import java.util.List;
 
 /**
- * Created by Evan on 4/11/2016.
+ * Created by Evan on 9/2/2016.
  */
 public class Session {
     private List<Talk> Talks;
@@ -11,9 +11,9 @@ public class Session {
 
     public Session() {}
 
-    public Session(List<Talk> Talks, boolean FilleUp) {
+    public Session(List<Talk> Talks, boolean FillUp) {
         this.Talks = Talks;
-        this.FillUp = FilleUp;
+        this.FillUp = FillUp;
     }
 
     public List<Talk> getTalks() {
@@ -28,7 +28,7 @@ public class Session {
         return FillUp;
     }
 
-    public void setFillUp(boolean fillUp) {
-        FillUp = fillUp;
+    public void setFillUp(boolean FillUp) {
+        FillUp = FillUp;
     }
 }

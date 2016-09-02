@@ -3,7 +3,7 @@ package com.meeting.entity;
 import java.util.*;
 
 /**
- * Created by Evan on 4/11/2016.
+ * Created by Evan on 9/2/2016.
  */
 public class Track {
     private static int SessionStartAt = 9;
@@ -46,15 +46,15 @@ public class Track {
         Sessions = new HashMap<Sessiontype, Session>();
     }
 
-    public boolean TalksExistForSession(Sessiontype sessiontype) {
+    public boolean talksExistForSession(Sessiontype sessiontype) {
         return Sessions.containsKey(sessiontype) && Sessions.get(sessiontype).isFillUp();
     }
 
-    public void AddTalksToSession(Sessiontype sessiontype, List<Talk> talksForSession) {
+    public void addTalksToSession(Sessiontype sessiontype, List<Talk> talksForSession) {
         Sessions.put(sessiontype, new Session(talksForSession,true));
     }
 
-    public List<Talk> TalksForSession(Sessiontype sessiontype) {
+    public List<Talk> talksForSession(Sessiontype sessiontype) {
         if (Sessions.containsKey(sessiontype)) {
             if (Sessions.get(sessiontype).isFillUp()) {
                 return Sessions.get(sessiontype).getTalks();

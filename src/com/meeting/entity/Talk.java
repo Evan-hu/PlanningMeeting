@@ -2,12 +2,12 @@ package com.meeting.entity;
 
 
 /**
- * Created by Evan on 4/11/2016.
+ * Created by Evan on 9/2/2016.
  */
 public class Talk implements Cloneable  {
-    private String title;
-    private int duration;
-    private boolean scheduled;
+    private String Title;
+    private int Duration;
+    private boolean Scheduled;
 
     public Talk() {
     }
@@ -22,13 +22,13 @@ public class Talk implements Cloneable  {
         return talk;
     }
 
-    public Talk(String title, int duration) {
-        this.title = title;
-        this.duration = duration;
+    public Talk(String Title, int Duration) {
+        this.Title = Title;
+        this.Duration = Duration;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public String DurationFormat() {
@@ -36,22 +36,22 @@ public class Talk implements Cloneable  {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = Title;
     }
 
     public int getDuration() {
-        return duration;
+        return Duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setDuration(int Duration) {
+        this.Duration = Duration;
     }
 
     public boolean isScheduled() {
-        return scheduled;
+        return Scheduled;
     }
 
-    public void setScheduled(boolean scheduled) {
-        this.scheduled = scheduled;
+    public void setScheduled(boolean Scheduled) {
+        this.Scheduled = Scheduled;
     }
 }

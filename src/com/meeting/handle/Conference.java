@@ -8,12 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Evan on 4/11/2016.
+ * Created by Evan on 9/2/2016.
  */
 public class Conference {
     private List<Track> tracks = new ArrayList<Track>();
 
-    public List<String> ScheduleTalks(List<Talk> talks) {
+    public List<String> scheduleTalks(List<Talk> talks) {
         List<String> results = new ArrayList<String>();
         if (talks.size() == 0) {
             results.add("No talks to scheduled");
@@ -25,15 +25,15 @@ public class Conference {
             int maxSet = talks.size() > 6 ? 6 : talks.size() - 1;
             for (int i = 0; i < numOfTracks; i++) {
                 tracks.add(new Track("Track " + i + 1));
-                AllocateSession(talks, i, Track.TotalMinInMorningSession, Sessiontype.MorningSession, maxSet);
-                AllocateSession(talks, i, Track.TotalMinInAfterNoonSession, Sessiontype.AfternoonSession, maxSet);
+                allocateSession(talks, i, Track.TotalMinInMorningSession, Sessiontype.MorningSession, maxSet);
+                allocateSession(talks, i, Track.TotalMinInAfterNoonSession, Sessiontype.AfternoonSession, maxSet);
             }
             if (talks.size() > 0) {
                 int remainingTalksDuration = getSumDuration(talks);
                 for (;maxSet > 0; --maxSet) {
                     for (int index = 0; index < numOfTracks && talks.size() > 0; ++index) {
-                        AllocateSession(talks, index, Track.TotalMinInMorningSession, Sessiontype.MorningSession, maxSet);
-                        AllocateSession(talks, index, Track.TotalMinInAfterNoonSession, Sessiontype.AfternoonSession, maxSet);
+                        allocateSession(talks, index, Track.TotalMinInMorningSession, Sessiontype.MorningSession, maxSet);
+                        allocateSession(talks, index, Track.TotalMinInAfterNoonSession, Sessiontype.AfternoonSession, maxSet);
                     }
                 }
             }
@@ -44,25 +44,23 @@ public class Conference {
                 calendar.set(Calendar.MINUTE,0);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a");
                 results.add("Track "+ i);
-                for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.MorningSession)) {
+                for (Talk talk : tracks.get(i-1).talksForSession(Sessiontype.MorningSession)) {
                     results.add(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
                     calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
                 results.add(dateFormat.format(Track.LunchPM)+ " Lunch");
                 calendar.add(Calendar.HOUR_OF_DAY, 1);
-                for (Talk talk : tracks.get(i-1).TalksForSession(Sessiontype.AfternoonSession)) {
+                for (Talk talk : tracks.get(i-1).talksForSession(Sessiontype.AfternoonSession)) {
                     results.add(dateFormat.format(calendar.getTime())+ " " + talk.getTitle() + talk.DurationFormat());
                     calendar.add(Calendar.MINUTE, talk.getDuration());
                 }
 
                 if (Track.FourPM.after(calendar.getTime())) {
                     results.add(dateFormat.format(Track.FourPM) + " Networking Event");
-                } else if (Track.FivePM.after(calendar.getTime())) {
-                    results.add(dateFormat.format(Track.FivePM) + " Networking Event");
                 } else {
                     results.add(dateFormat.format(Track.FivePM) + " Networking Event");
                 }
-                results.add("\n\n");
+                results.add(" ");
             }
 
 
@@ -82,15 +80,15 @@ public class Conference {
         return duration;
     }
 
-    private void AllocateSession(List<Talk> talks, int trackIndex, int totalNumOfMintues, Sessiontype sessionType, int maxset ) {
-        if (tracks.get(trackIndex).TalksExistForSession(sessionType)) {
+    private void allocateSession(List<Talk> talks, int trackIndex, int totalNumOfMintues, Sessiontype sessionType, int maxset ) {
+        if (tracks.get(trackIndex).talksExistForSession(sessionType)) {
             return ;
         }
         List<Talk> talksForSession = new ArrayList<Talk>();
         if (!GetAllTime(talks,totalNumOfMintues)) {
-            talksForSession = LookForSession(talks, trackIndex, totalNumOfMintues, maxset);
+            talksForSession = lookForSession(talks, trackIndex, totalNumOfMintues, maxset);
             if (!talksForSession.isEmpty()) {
-                tracks.get(trackIndex).AddTalksToSession(sessionType, talksForSession);
+                tracks.get(trackIndex).addTalksToSession(sessionType, talksForSession);
                 for (int i = 0; i < talksForSession.size(); i++) {
                     talks.remove(talksForSession.get(i));
                 }
@@ -99,18 +97,18 @@ public class Conference {
             for (int i=0; i<talks.size(); i++) {
                 talksForSession.add((Talk) talks.get(i).clone());
             }
-            tracks.get(trackIndex).AddTalksToSession(sessionType, talksForSession);
+            tracks.get(trackIndex).addTalksToSession(sessionType, talksForSession);
             talks.clear();
         }
     }
 
-    private List<Talk> LookForSession(List<Talk> talks, int trackIndex, int totalMintues, int maxSet) {
+    private List<Talk> lookForSession(List<Talk> talks, int trackIndex, int totalMintues, int maxSet) {
         List<Talk> combinations = new ArrayList<Talk>(talks.size());
         List<Talk> talksInSession = new ArrayList<Talk>(maxSet);
         boolean found = false;
 
         for (; maxSet > 0; maxSet--) {
-            Iterator<Talk> itr = GetCombinations(maxSet, trackIndex, combinations, talks).iterator();
+            Iterator<Talk> itr = getCombinations(maxSet, trackIndex, combinations, talks).iterator();
             while (itr.hasNext()) {
                 talksInSession.clear();
                 int availableMin = totalMintues;
@@ -139,13 +137,13 @@ public class Conference {
         return talksInSession;
     }
 
-    private List<Talk> GetCombinations(int step, int arrayIndex, List<Talk> combination, List<Talk> talks) {
+    private List<Talk> getCombinations(int step, int arrayIndex, List<Talk> combination, List<Talk> talks) {
         if (0 == step) {
             return combination;
         }
         for (int i = arrayIndex; i < talks.size(); i++) {
             combination.add(talks.get(i));
-            GetCombinations(step-1, i+1, combination, talks);
+            getCombinations(step-1, i+1, combination, talks);
         }
         return combination;
     }
